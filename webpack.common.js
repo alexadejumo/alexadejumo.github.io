@@ -12,16 +12,21 @@ module.exports = {
       },
       {
         test: /\.(jpg|jpeg|png|gif|svg|pdf)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].[hash].[ext]",
-              outputPath: "assets",
-              esModule: false
-            }
-          }
-        ]
+        type: "asset/resource",
+        generator: {
+          filename: "assets/[name].[contenthash][ext]"
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/fonts/[name].[contenthash][ext]"
+        }
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
       }
     ]
   },
